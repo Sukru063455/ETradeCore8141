@@ -1,0 +1,23 @@
+﻿@model List<CategoryModel>
+
+<h5>Categories</h5>
+<hr />
+
+@if (Model is not null && Model.Count > 0)
+{
+    <ul class="navbar-nav">
+        <li>
+            <a asp-action="Index" asp-controller="Home" asp-area="Report">All Categories</a>
+        </li>
+        @foreach (var category in Model)
+        {
+            <li>
+                <a asp-action="Index" asp-controller="Home" asp-area="Report" asp-route-Filter.CategoryId="@category.Id">@category.Name</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p class="text-danger">No categories found</p>
+}

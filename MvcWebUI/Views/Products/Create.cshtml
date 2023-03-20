@@ -1,0 +1,116 @@
+﻿@model ProductModel
+@*Model namespace using directive should be added to _ViewImports.cshtml.*@
+
+@{
+    ViewData["Title"] = "Create New Product";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <form asp-action="Create" asp-controller="Products" method="post" autocomplete="off" enctype="multipart/form-data">
+		@Html.AntiForgeryToken()
+
+			@if (ViewBag.Message is not null)
+			{
+				<p class="text-danger">@ViewBag.Message</p>
+			}
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row mb-3">
+                <label asp-for="Name" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="Name" class="form-control" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Description" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<textarea asp-for="Description" class="form-control" rows="4"></textarea>
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="UnitPrice" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="UnitPrice" class="form-control" />
+					<span asp-validation-for="UnitPrice" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="StockAmount" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="StockAmount" class="form-control"/>
+					<span asp-validation-for="StockAmount" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="ExpirationDate" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="ExpirationDate" class="form-control" id="datepicker" type="text" />
+					<span asp-validation-for="ExpirationDate" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="CategoryId" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
+						<option value="">-- Select --</option>
+					</select>
+					<span asp-validation-for="CategoryId" class="text-danger"></span>
+				</div>
+            </div>
+
+			<div class="row mb-3">
+				<label asp-for="StoreIds" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<select asp-for="StoreIds" class="form-select" asp-items="ViewBag.Stores">
+						
+					</select>
+					<span asp-validation-for="StoreIds" class="text-danger"></span>
+				</div>
+			</div>
+
+			<div class="row mb-3">
+				<label asp-for="Image" class="col-2 col-form-label"></label>@*<label for="Image" class="col-2 col-form-label"></label>*@
+				<div class="col-5">
+					<input type="file" name="uploadedImage" class="form-control" id="Image"/>
+				</div>
+			</div>
+            
+            <div class="row mb-3">
+				<div class="offset-2 col-5">
+					<input type="submit" value="Save" class="btn btn-primary" />
+					&nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-primary">Reset</button>
+					&nbsp;&nbsp;
+					<a asp-action="Index">Back to List</a>
+				</div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    @*<script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.tr.min.js"></script>*@
+	<script>
+		//$(document).ready(function() {
+		$(function(){
+			$('#datepicker').datepicker({
+				todayBtn: "linked",
+				//language: "tr",
+				orientation: "top auto",
+				autoclose: true,
+				todayHighlight: true
+			});
+		});
+	</script>
+}
+
+
